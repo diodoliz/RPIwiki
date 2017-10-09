@@ -12,6 +12,7 @@ See how successfull material numbers are extracted. PICI does not need to captur
 Select 
 	BRWdocument.SOURCE_ID,
 	FIELDNAME,
+	COUNT(1) as NumberOfInvoices,
 	-- Show Line Pairing Stats (These are usefull to see who well solution pairs PO lines)
 	SUM(LP_TOTAL) as LPTotalLines,
 	SUM(LP_PAIRED) as LPPairedLines,
