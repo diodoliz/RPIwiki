@@ -8,7 +8,7 @@ Some usefull queries for LP analysis.
 See how successfull material numbers are extracted. PICI does not need to capture the Material Number to Pair the line. Description and Price iformation works for pairing most of the time. When you see 
 
 ```sql
--- Show line pairing stats by Vendor. This queuery also shows extraction rates. Low % of LP and High Blank rate is good indication to add some formats to BRWMAT table
+-- Show line pairing stats by Vendor. This query also shows extraction rates. Low % of LP and High Blank rate is good indication to add some formats to BRWMAT table
 Select 
 	BRWdocument.SOURCE_ID,
 	FIELDNAME,
