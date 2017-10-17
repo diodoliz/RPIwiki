@@ -46,7 +46,7 @@ ORDER BY SUM(LP_TOTAL) DESC
 
 ## 2 - See what lines are paried on the invoices, and what lines are not paired. This query shows exactly which lines where output unpaired.
 
-```
+```sql
 --Identify Paried lines on the invoice
 Select 
 	BRWdocument.DOCUMENTNUMBER	as DocID,
