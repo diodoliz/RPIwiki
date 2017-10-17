@@ -43,3 +43,26 @@ GROUP BY BRWdocument.SOURCE_ID, FIELDNAME
 ORDER BY SUM(LP_TOTAL) DESC
 
 ```
+
+## 2 - See what lines are paried on the invoices, and what lines are not paired. This query shows exactly which lines where output unpaired.
+
+```
+--Identify Paried lines on the invoice
+Select 
+	BRWdocument.DOCUMENTNUMBER	as DocID,
+	PONumber.ROWNUMBER			as InvoiceRow,
+	PONumber.CONTENTRTS			as PairedToPO,
+	POLineNumber.CONTENTRTS		as PairedToLine,
+	LineDesc.CONTENTRTS			as LineDescription,
+	LineUnitPrice.CONTENTRTS	as LineUnitPrice,
+	LineQuantitiy.CONTENTRTS	as LineQuantitiy,
+	LineTotal.CONTENTRTS		as LineTotal
+from BRWdocument
+left join BRWdistillerFields PONumber on BRWdocument.DOCUMENTNUMBER = PONumber.DOCUMENTNUMBER and PONumber.FIELDNAME = 'LineItems.PO'
+left join BRWdistillerFields POLineNumber on BRWdocument.DOCUMENTNUMBER = POLineNumber.DOCUMENTNUMBER and POLineNumber.FIELDNAME = 'LineItems.Line' and PONumber.ROWNUMBER = POLineNumber.ROWNUMBER
+left join BRWdistillerFields LineDesc on BRWdocument.DOCUMENTNUMBER = LineDesc.DOCUMENTNUMBER and LineDesc.FIELDNAME = 'LineItems.Description' and PONumber.ROWNUMBER = LineDesc.ROWNUMBER
+left join BRWdistillerFields LineUnitPrice on BRWdocument.DOCUMENTNUMBER = LineUnitPrice.DOCUMENTNUMBER and LineUnitPrice.FIELDNAME = 'LineItems.UnitPrice' and PONumber.ROWNUMBER = LineUnitPrice.ROWNUMBER
+left join BRWdistillerFields LineQuantitiy on BRWdocument.DOCUMENTNUMBER = LineQuantitiy.DOCUMENTNUMBER and LineQuantitiy.FIELDNAME = 'LineItems.Quantity' and PONumber.ROWNUMBER = LineQuantitiy.ROWNUMBER
+left join BRWdistillerFields LineTotal on BRWdocument.DOCUMENTNUMBER = LineTotal.DOCUMENTNUMBER and LineTotal.FIELDNAME = 'LineItems.Total' and PONumber.ROWNUMBER = LineTotal.ROWNUMBER
+where BRWdocument.DOCUMENTNUMBER = '<DocID>'
+```
