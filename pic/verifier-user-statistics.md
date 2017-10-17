@@ -1,7 +1,7 @@
 <!-- TITLE: Verifier User Statistics -->
 <!-- SUBTITLE: A quick summary of Verifier User Statistics -->
 
-# Header
+# Verifier User Statistics
 
 ## User performance
 ```sql
