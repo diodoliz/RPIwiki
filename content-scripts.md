@@ -17,6 +17,8 @@ Get-Service -Name "imagenow*6.7*" | foreach {
 #Run as amdinistrator
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
+#NOTE: YOU HAVE TO MANUALLY GRANT "LOG ON AS A SERVICE" ROLE TO THE ACCOUNT. Local Secutiry Policy -> Local Policies -> User Rights Assignment -> Log On as a service
+
 #Change Username and password
 $username = "<DOMAIN>\<USER>"
 $password = "<PASSWORD>"
