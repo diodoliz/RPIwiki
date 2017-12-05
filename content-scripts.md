@@ -12,6 +12,27 @@ Get-Service -Name "imagenow*6.7*" | foreach {
 }
 ```
 
+### Uptade services to run with service accounts
+```powershell
+#Run as amdinistrator
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+
+#Change Username and password
+$username = "<DOMAIN>\<USER>"
+$password = "<PASSWORD>"
+
+#Add user as local admin
+net localgroup administrators $username /add
+
+#Set service to run as this user
+Get-Service -Name "imagenow*7.2*" | foreach {
+    $svcname = $_.Name 
+    $svcname
+    sc.exe config `"$svcname`" obj= `"$username`" password= `"$password`"
+}
+
+```
+
 
 ### Update JAVA_HOME
 ```batchfile
