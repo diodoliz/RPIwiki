@@ -5,6 +5,9 @@
 
 ### Delete old ImageNow services
 ```powershell
+#Run as amdinistrator
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+
 Get-Service -Name "imagenow*6.7*" | foreach {
     $svcname = $_.Name 
     $svcname
